@@ -13,12 +13,15 @@ let g:loaded_alignta_helper = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-let g:alignta_helper_do_brace_mappings = get(g:, 'alignta_helper_do_brace_mappings', 1)
-let g:alignta_helper_do_jabrace_mappings = get(g:, 'alignta_helper_do_jabrace_mappings', 1)
-let g:alignta_helper_do_code_mappings = get(g:, 'alignta_helper_do_code_mappings', 1)
+let s:do_mappings = get(g:, 'alignta_helper_do_mappings', {})
+for kind in ['braces', 'jabraces', 'codes']
+  if ! has_key(s:do_mappings, kind) || s:do_mappings[kind] != 0
+    let s:do_mappings[kind] = 1
+  endif
+endfor
 let g:alignta_helper_leader_key = get(g:, 'alignta_helper_leader_key', '')
 
-call alignta_helper#init_mappings(g:alignta_helper_do_brace_mappings, {
+call alignta_helper#init_mappings(s:do_mappings.braces, {
 \ 'parens'            : ['b', '(', ')'],
 \ 'parens-no-margin'  : [''],
 \ 'brackets'          : ['B', '{', '}'],
@@ -29,7 +32,7 @@ call alignta_helper#init_mappings(g:alignta_helper_do_brace_mappings, {
 \ 'angles-no-margin'  : ['A'],
 \})
 
-call alignta_helper#init_mappings(g:alignta_helper_do_jabrace_mappings, {
+call alignta_helper#init_mappings(s:do_mappings.jabraces, {
 \ 'jabraces-parens'           : ['jb', 'j(', 'j)' ],
 \ 'jabraces-brackets'         : ['jB', 'j{', 'j}' ],
 \ 'jabraces-braces'           : ['jr', 'j[', 'j]' ],
@@ -43,7 +46,7 @@ call alignta_helper#init_mappings(g:alignta_helper_do_jabrace_mappings, {
 \ 'jabraces-sumi-kakko'       : ['js'],
 \})
 
-call alignta_helper#init_mappings(g:alignta_helper_do_code_mappings, {
+call alignta_helper#init_mappings(s:do_mappings.codes, {
 \ 'spaces'           : ['<Space>', 's'],
 \ 'tabs'             : ['<Tab>', 't'],
 \ 'blanks'           : ['S', 'T'],
