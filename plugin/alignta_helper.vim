@@ -14,9 +14,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:do_mappings = get(g:, 'alignta_helper_do_mappings', {})
-for kind in ['braces', 'jabraces', 'codes']
-  if ! has_key(s:do_mappings, kind) || s:do_mappings[kind] != 0
-    let s:do_mappings[kind] = 1
+for s:kind in ['braces', 'jabraces', 'codes']
+  if ! has_key(s:do_mappings, s:kind) || s:do_mappings[s:kind] != 0
+    let s:do_mappings[s:kind] = 1
   endif
 endfor
 let g:alignta_helper_leader_key = get(g:, 'alignta_helper_leader_key', '')
