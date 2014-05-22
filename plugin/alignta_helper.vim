@@ -1,7 +1,6 @@
 " File:        plugin/alignta_helper.vim
 " Author:      sima (TwitterID: sima_fu)
 " Namespace:   http://f-u.seesaa.net/
-" Last Change: 2014-01-21.
 
 scriptencoding utf-8
 
