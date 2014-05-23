@@ -22,6 +22,7 @@ let g:alignta_helper_enable_default =
       \   'codes': 1,
       \}, 'keep')
 
+" setup default configs {{{
 if g:alignta_helper_enable_default.braces
   call alignta_helper#setup('opts', {
   \ 'parens'            : '<<  \V\[()]',
@@ -136,7 +137,9 @@ if g:alignta_helper_enable_default.codes
   \ 'underscores'      : ['_'],
   \})
 endif
+" }}}
 
+" mappings
 nnoremap <silent> <Plug>(alignta_helper_map) :<C-u>call alignta_helper#map('n')<CR>
 xnoremap <silent> <Plug>(alignta_helper_map) :<C-u>call alignta_helper#map('x')<CR>
 
