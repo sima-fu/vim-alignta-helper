@@ -35,12 +35,14 @@ function! s:helper.buildTable() " {{{
       for key in keylist
         let key = s:unescape(key)
         let _t = self.table
-        for char in split(key, '\zs')
+        let i = 0
+        while i < strlen(key)
+          let char = key[i]
           if char == "\<Esc>" || char == "\<C-c>"
             " <Esc> と <C-c> は入力を中止するために予約済み
             throw 'The chars of "<Esc>" and "<C-c>" are not available in g:alignta_helper_keys.'
           endif
-          let isLastchar = (key =~ '\V' . escape(char, '\') . '\$')
+          let isLastchar = i == strlen(key) - 1
           if has_key(_t, char)
             if type(_t[char]) == type('') || isLastchar
               throw 'The key of "' . key . '" has overlapped in g:alignta_helper_keys.'
@@ -54,7 +56,8 @@ function! s:helper.buildTable() " {{{
             let _t[char] = {}
           endif
           let _t = _t[char]
-        endfor
+          let i += 1
+        endwhile
       endfor
     endfor
   catch
