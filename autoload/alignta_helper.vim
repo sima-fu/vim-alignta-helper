@@ -7,13 +7,6 @@ scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! alignta_helper#setup(varname, dict) " {{{
-  " 既に存在する変数に対してのみ処理を行う
-  if !exists('g:alignta_helper_' . a:varname) | return | endif
-  let g:alignta_helper_{a:varname} =
-        \ extend(g:alignta_helper_{a:varname}, a:dict, 'keep')
-endfunction " }}}
-
 function! s:unescape(key) " {{{
   let key = split(a:key, '\(<[^<>]\+>\|.\)\zs')
   call map(key, 'v:val =~ "^<.*>$" ? eval(''"\'' . v:val . ''"'') : v:val')

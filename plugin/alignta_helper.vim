@@ -22,9 +22,12 @@ let g:alignta_helper_enable_default =
       \   'codes': 1,
       \}, 'keep')
 
-" setup default configs {{{
+function! s:extend(varname, dict) " {{{
+  let g:alignta_helper_{a:varname} =
+        \ extend(g:alignta_helper_{a:varname}, a:dict, 'keep')
+endfunction " }}}
 if g:alignta_helper_enable_default.braces
-  call alignta_helper#setup('opts', {
+  call s:extend('opts', {
   \ 'parens'            : '<<  \V\[()]',
   \ 'parens-no-margin'  : '<<0 \V\[()]',
   \ 'brackets'          : '<<  \V\[{}]',
@@ -34,7 +37,7 @@ if g:alignta_helper_enable_default.braces
   \ 'angles'            : '<<  \V\[<>]',
   \ 'angles-no-margin'  : '<<0 \V\[<>]',
   \})
-  call alignta_helper#setup('keys', {
+  call s:extend('keys', {
   \ 'parens'            : ['b', '('],
   \ 'parens-no-margin'  : ['<C-b>', ')'],
   \ 'brackets'          : ['B', '{'],
@@ -46,7 +49,7 @@ if g:alignta_helper_enable_default.braces
   \})
 endif
 if g:alignta_helper_enable_default.jabraces
-  call alignta_helper#setup('opts', {
+  call s:extend('opts', {
   \ 'jabraces-parens'           : '<<0 \V\[\uFF08\uFF09]',
   \ 'jabraces-brackets'         : '<<0 \V\[\uFF5B\uFF5D]',
   \ 'jabraces-braces'           : '<<0 \V\[\uFF3B\uFF3D]',
@@ -59,7 +62,7 @@ if g:alignta_helper_enable_default.jabraces
   \ 'jabraces-kikkou-kakko'     : '<<0 \V\[\u3014\u3015]',
   \ 'jabraces-sumi-kakko'       : '<<0 \V\[\u3010\u3011]',
   \})
-  call alignta_helper#setup('keys', {
+  call s:extend('keys', {
   \ 'jabraces-parens'           : ['jb', 'j(', 'j)' ],
   \ 'jabraces-brackets'         : ['jB', 'j{', 'j}' ],
   \ 'jabraces-braces'           : ['jr', 'j[', 'j]' ],
@@ -74,7 +77,7 @@ if g:alignta_helper_enable_default.jabraces
   \})
 endif
 if g:alignta_helper_enable_default.codes
-  call alignta_helper#setup('opts', {
+  call s:extend('opts', {
   \ 'spaces'           : '<<0 \ ',
   \ 'tabs'             : '<<0 \t',
   \ 'blanks'           : '<<0 \V\[\ \t]',
@@ -105,7 +108,7 @@ if g:alignta_helper_enable_default.codes
   \ 'stars'            : '<< *',
   \ 'underscores'      : '<< _',
   \})
-  call alignta_helper#setup('keys', {
+  call s:extend('keys', {
   \ 'spaces'           : ['<Space>', 's'],
   \ 'tabs'             : ['<Tab>', 't'],
   \ 'blanks'           : ['S', 'T'],
@@ -137,7 +140,6 @@ if g:alignta_helper_enable_default.codes
   \ 'underscores'      : ['_'],
   \})
 endif
-" }}}
 
 " mappings
 nnoremap <silent> <Plug>(alignta_helper_map) :<C-u>call alignta_helper#map('n')<CR>
