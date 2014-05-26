@@ -28,13 +28,13 @@ function! s:extend(varname, dict) " {{{
 endfunction " }}}
 if g:alignta_helper_enable_default.braces
   call s:extend('opts', {
-  \ 'parens'            : '<<  \V\[()]',
+  \ 'parens'            : '<< \V\[()]',
   \ 'parens-no-margin'  : '<<0 \V\[()]',
-  \ 'brackets'          : '<<  \V\[{}]',
+  \ 'brackets'          : '<< \V\[{}]',
   \ 'brackets-no-margin': '<<0 \V\[{}]',
-  \ 'braces'            : '<<  \V\[\[\]]',
+  \ 'braces'            : '<< \V\[\[\]]',
   \ 'braces-no-margin'  : '<<0 \V\[\[\]]',
-  \ 'angles'            : '<<  \V\[<>]',
+  \ 'angles'            : '<< \V\[<>]',
   \ 'angles-no-margin'  : '<<0 \V\[<>]',
   \})
   call s:extend('keys', {
@@ -63,10 +63,10 @@ if g:alignta_helper_enable_default.jabraces
   \ 'jabraces-sumi-kakko'       : '<<0 \V\[\u3010\u3011]',
   \})
   call s:extend('keys', {
-  \ 'jabraces-parens'           : ['jb', 'j(', 'j)' ],
-  \ 'jabraces-brackets'         : ['jB', 'j{', 'j}' ],
-  \ 'jabraces-braces'           : ['jr', 'j[', 'j]' ],
-  \ 'jabraces-angles'           : ['ja', 'j<', 'j>' ],
+  \ 'jabraces-parens'           : ['jb', 'j(', 'j)'],
+  \ 'jabraces-brackets'         : ['jB', 'j{', 'j}'],
+  \ 'jabraces-braces'           : ['jr', 'j[', 'j]'],
+  \ 'jabraces-angles'           : ['ja', 'j<', 'j>'],
   \ 'jabraces-double-angles'    : ['jA'],
   \ 'jabraces-kakko'            : ['jk'],
   \ 'jabraces-double-kakko'     : ['jK'],
