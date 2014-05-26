@@ -142,8 +142,8 @@ if g:alignta_helper_enable_default.codes
 endif
 
 " mappings
-nnoremap <silent> <Plug>(alignta_helper_map) :<C-u>call alignta_helper#map('n')<CR>
-xnoremap <silent> <Plug>(alignta_helper_map) :<C-u>call alignta_helper#map('x')<CR>
+nnoremap <silent> <Plug>(alignta-helper) :<C-u>call alignta_helper#map('n')<CR>
+xnoremap <silent> <Plug>(alignta-helper) :<C-u>call alignta_helper#map('x')<CR>
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
