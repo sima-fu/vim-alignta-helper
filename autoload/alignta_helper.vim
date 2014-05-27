@@ -58,7 +58,7 @@ function! s:helper.buildTable() " {{{
     throw v:exception
   endtry
 endfunction " }}}
-function! s:helper.getOpt() " {{{
+function! s:helper.run(callback, ...) " {{{
   if !has_key(self, 'table') | call self.buildTable() | endif
   let opt = ''
   let [_t, char] = [self.table, s:getchar()]
@@ -66,27 +66,25 @@ function! s:helper.getOpt() " {{{
     if char == "\<Esc>" || char == "\<C-c>"
       " <Esc> と <C-c> は入力を中止するために予約済み
       break
-    endif
-    if type(_t[char]) == type('')
+    elseif type(_t[char]) == type('')
       " 設定を取得
       let opt = g:alignta_helper_opts[_t[char]]
       break
-    else
-      let [_t, char] = [_t[char], s:getchar()]
     endif
+    let [_t, char] = [_t[char], s:getchar()]
   endwhile
-  return opt
+  if opt != '' | call call(a:callback, [opt] + a:000) | endif
 endfunction " }}}
 
+function! s:exeAlignta(opt, mode) " {{{
+  silent execute printf('%sAlignta %s',
+        \ {'n': '%', 'x': "'<,'>"}[a:mode],
+        \ a:opt
+        \)
+endfunction " }}}
 function! alignta_helper#map(mode) " {{{
   try
-    let opt = s:helper.getOpt()
-    if opt != ''
-      execute printf('%sAlignta %s',
-            \ {'n': '%', 'x': "'<,'>"}[a:mode],
-            \ opt
-            \)
-    endif
+    call s:helper.run(function('s:exeAlignta'), a:mode)
   catch
     echohl ErrorMsg | echomsg 'alignta_helper:' v:exception | echohl None
   endtry
