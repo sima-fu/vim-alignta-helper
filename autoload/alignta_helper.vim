@@ -60,7 +60,7 @@ function! s:helper.buildTable() " {{{
 endfunction " }}}
 function! s:helper.run(callback, ...) " {{{
   if !has_key(self, 'table') | call self.buildTable() | endif
-  let opt = ''
+  let [optname, opt] = ['', '']
   let [_t, char] = [self.table, s:getchar()]
   while has_key(_t, char)
     if char == "\<Esc>" || char == "\<C-c>"
@@ -68,16 +68,18 @@ function! s:helper.run(callback, ...) " {{{
       break
     elseif type(_t[char]) == type('')
       " 設定を取得
-      let opt = g:alignta_helper_opts[_t[char]]
+      let optname = _t[char]
+      let opt = g:alignta_helper_opts[optname]
       break
     endif
     let [_t, char] = [_t[char], s:getchar()]
   endwhile
-  if opt != '' | call call(a:callback, [opt] + a:000) | endif
+  if opt != '' | call call(a:callback, [optname, opt] + a:000) | endif
 endfunction " }}}
 
-function! s:exeAlignta(opt, mode) " {{{
-  silent execute printf('%sAlignta %s',
+function! s:exeAlignta(optname, opt, mode) " {{{
+  echohl WarningMsg | echo 'Alignta-ed by' a:optname | echohl None
+  execute printf('%sAlignta %s',
         \ {'n': '%', 'x': "'<,'>"}[a:mode],
         \ a:opt
         \)
