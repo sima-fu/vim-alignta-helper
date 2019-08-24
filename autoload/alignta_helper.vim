@@ -88,7 +88,7 @@ function! alignta_helper#map(mode) " {{{
   try
     call s:helper.run(function('s:exeAlignta'), a:mode)
   catch
-    echohl ErrorMsg | echomsg 'alignta_helper:' v:exception | echohl None
+    echoerr 'alignta_helper:' v:exception
   endtry
 endfunction " }}}
 
